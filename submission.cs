@@ -1,7 +1,4 @@
-﻿// Name: Micaela Leong
-// ASU ID: 1225320759
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,11 +9,11 @@ using System.Threading;
  * This template file is created for ASU CSE445 Distributed SW Dev Assignment 2.
  * Please do not modify or delete any existing class/variable/method names. However, you can add more variables and functions.
  * Uploading this file directly will not pass the autograder's compilation check, resulting in a grade of 0.
-**/
+ * **/
 
 namespace ConsoleApp1
 {
-    // delegate declaration for creating events
+    //delegate declaration for creating events
     public delegate void PriceCutEvent(double roomPrice, Thread agentThread);
     public delegate void OrderProcessEvent(Order order, double orderAmount);
     public delegate void OrderCreationEvent();
@@ -28,7 +25,7 @@ namespace ConsoleApp1
         public static bool hotelThreadRunning = true;
         public static void Main(string[] args)
         {
-            
+
             Console.WriteLine("Inside Main");
             buffer = new MultiCellBuffer();
 
@@ -63,6 +60,7 @@ namespace ConsoleApp1
         private Order[] multiCells; // ? mark make the type nullable: allow to assign null value
         public static Semaphore getSemaph;
         public static Semaphore setSemaph;
+        private object lockObj = new object();
 
         public MultiCellBuffer() //constructor 
         {
@@ -73,56 +71,67 @@ namespace ConsoleApp1
             // https://learn.microsoft.com/en-us/dotnet/api/system.threading.semaphore?view=net-9.0
             getSemaph = new Semaphore(0, bufferSize); // initialize getSemaph to be a new semaphore with initial size 0 and max size bufferSize
             setSemaph = new Semaphore(bufferSize, bufferSize); // initialize setSemaph to be a new semaphore with initial size bufferSize and max size bufferSize
-
         }
 
         public void SetOneCell(Order data)
         {
-            Console.WriteLine("Setting in buffer cell");
-            setSemaph.WaitOne(); // decrements setSemaph count (-1 available cells that can be set)
-            // https://stackoverflow.com/questions/70465029/understanding-semaphores-in-c-sharp
-
-            for (int i = 0; i < bufferSize; i++) {
-                if (multiCells[i] == null) {
-                    multiCells[i] = data; // set cell with given data
-                    usedCells++;
-                    break;
+            if (setSemaph.WaitOne(0))
+            {
+                setSemaph.WaitOne(); // decrements setSemaph count (-1 available cells that can be set)
+                                     // https://stackoverflow.com/questions/70465029/understanding-semaphores-in-c-sharp
+                lock (lockObj)
+                { // prevents multiple threads from entering critical section at once
+                    for (int i = 0; i < bufferSize; i++)
+                    {
+                        if (multiCells[i] == null)
+                        {
+                            multiCells[i] = data; // set cell with given data
+                            usedCells++;
+                            break;
+                        }
+                    }
                 }
             }
             getSemaph.Release(); // increments getSemaph count (+1 cells that can be gotten)
-            Console.WriteLine("Exit setting in buffer");
         }
 
         public Order GetOneCell()
         {
-            getSemaph.WaitOne(); // decrements getSemaph count (-1 cells that can be gotten)
             Order tempOrder = null; // temporary null Order
 
-            for (int i = 0; i < bufferSize; i++) {
-                if (multiCells[i] != null) {
-                    multiCells[i] = null; // replace cell's data with null
-                    usedCells--;
-                    break;
+            if (getSemaph.WaitOne(0)) // checks if getSemaph value is greater than 0
+            {
+                Monitor.Enter(lockObj);
+                for (int i = 0; i < bufferSize; i++)
+                {
+                    if (multiCells[i] != null)
+                    {
+                        tempOrder = multiCells[i]; // holds existing order in a temporary order
+                        multiCells[i] = null; // replace cell's data with null
+                        usedCells--;
+                        break;
+                    }
                 }
+
+                Monitor.Exit(lockObj);
+                setSemaph.Release(); // releases semaphore, increments setSemaph count (+1 cells that can be set)
             }
 
-            setSemaph.Release(); // increments setSemaph count (+1 cells that can be set)
-            Console.WriteLine("Exit reading buffer");
+            return tempOrder; // returns the "gotten" order 
         }
     }
-
     public class Order
     {
-        // identity of sender of order
+        //identity of sender of order
         private string senderId;
-        // credit card number
+        //credit card number
         private long cardNo;
-        // unit price of room from hotel
+        //unit price of room from hotel
         private double unitPrice;
-        // quantity of rooms to order
+        //quantity of rooms to order
         private int quantity;
 
-        // parametrized constructor
+        //parametrized constructor
         public Order(string senderId, long cardNo, double unitPrice, int quantity)
         {
             this.senderId = senderId; // set senderId with given argument
@@ -131,7 +140,7 @@ namespace ConsoleApp1
             this.quantity = quantity; // set quantity with argument 
         }
 
-        // getter methods; allows for private variables to be accessed
+        //getter methods
         public string getSenderId()
         {
             return senderId; // returns sender ID
@@ -154,112 +163,127 @@ namespace ConsoleApp1
     public class OrderProcessing
     {
         public static event OrderProcessEvent OrderProcess;
-        // method to check for valid credit card number input
+        //method to check for valid credit card number input
         public static bool creditCardCheck(long creditCardNumber)
         {
-            if (creditCardNumber >= 5000 && creditCardNumber <= 7000) {
+            if (creditCardNumber >= 5000 && creditCardNumber <= 7000)
+            {
                 return true;
             }
 
             return false;
         }
 
-        // method to calculate the final charge after adding taxes, location charges, etc
+        //method to calculate the final charge after adding taxes, location charges, etc
         public static double calculateCharge(double unitPrice, int quantity)
         {
-            Random rnd = new Random(); 
-            double tax = rnd.Next(8, 12) / 100.0; // generates random tax in between 8-12%
+            Random rnd = new Random();
+            double taxRate = rnd.Next(8, 13) / 100.0; // generates random tax in range [8, 12]; divide by 100 to get percent
+            double taxAmount = unitPrice * (double)quantity * taxRate;
             int locationCharge = rnd.Next(20, 81); // generates random location charge in range [20, 80]
 
             // unitPrice * NoOfTicket + Tax + LocationCharge (given equation)
-            double charge = unitPrice * (double)quantity + tax + (double)locationCharge;
+            double charge = unitPrice * (double)quantity + taxAmount + (double)locationCharge;
 
             return charge;
         }
 
-        // method to process the order
+        //method to process the order
         public static void ProcessOrder(Order order)
         {
             bool validCard = creditCardCheck(order.getCardNo()); // check that given card is valid
 
-            if (validCard) {
+            if (validCard)
+            {
                 // calculate total price
                 double totalPrice = calculateCharge(order.getUnitPrice(), order.getQuantity());
-                // FIX THIS
-                OrderProcess(order, totalPrice); // pass OrderProcess with given Order and calculated price
-            }            
+
+                // referenced this documentation: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/member-access-operators#null-conditional-operators--and-
+                OrderProcess?.Invoke(order, totalPrice); // pass OrderProcess with given Order and calculated price while making sure that it is not null
+            }
         }
     }
     public class TravelAgent
     {
         public static event OrderCreationEvent orderCreation;
+        private double price;
 
         public void agentFun()
         {
-            Console.WriteLine("Starting travel agent now");
+            Thread.Sleep(500);
         }
         public void orderProcessConfirm(Order order, double orderAmount)
         {
-            // FIX THIS
-            Console.WriteLine("Travel Agent " + Thread.CurrentThread.Name + "'s order is confirmed. The amount to be charged is $" + orderAmount);
+            // Console.WriteLine("Travel Agent " + Thread.CurrentThread.Name + "'s order is confirmed. The amount to be charged is $" + orderAmount);
         }
 
         private void createOrder(string senderId)
         {
-            Console.WriteLine("Inside create order");
             Random rnd = new Random();
             Order order;
             long cardNo = rnd.Next(5000, 7001); // creates random card number in range [5000, 7000]
-
+            int quantity = rnd.Next(1, 11); // randomly selects number of rooms in range [1, 10]
             order = new Order(senderId, cardNo, price, quantity);
+
+            MainClass.buffer.SetOneCell(order);
+            orderCreation?.Invoke(order);
+
         }
         public void agentOrder(double roomPrice, Thread travelAgent) // Callback from hotel thread
         {
+            price = roomPrice;
             createOrder(travelAgent.Name);
-            orderCreation();
+            orderCreation.Invoke();
         }
     }
     public class Hotel
     {
-        static double currentRoomPrice = 100; // random current agent price
+        static double currentRoomPrice = 100; //random current agent price
         static int threadNo = 0;
         static int eventCount = 0;
         public static event PriceCutEvent PriceCut;
 
         public void hotelFun()
         {
-            // FIX THIS
-            int priceCuts = 0;
-            while (priceCuts < 10)
+            while (eventCount < 10)
             {
                 double newRoomPrice = pricingModel();
                 if (newRoomPrice < currentRoomPrice)
                 {
-                    PriceCut.Invoke(newRoomPrice, Thread.CurrentThread);
-                    priceCuts++;
+                    PriceCut?.Invoke(newRoomPrice, Thread.CurrentThread);
+                    eventCount++;
                 }
+
                 updatePrice(newRoomPrice); // call updatePrice function
             }
-        }
 
-        // using random method to generate random room prices
+            MainClass.hotelThreadRunning = false;
+        }
+        //using random method to generate random room prices
         public double pricingModel()
         {
-            Random rnd = new Random(); 
-            double price = rnd.Next(80, 161); // generates random price in the range [80, 160]
-            Console.WriteLine("New price is " + price.ToString());
+            Random rnd = new Random();
+            double price = rnd.Next(80, 161);
             return price;
         }
 
         public void updatePrice(double newRoomPrice)
         {
             currentRoomPrice = newRoomPrice; // updates currentRoomPrice variable to given new price
-            Console.WriteLine("Updating the price and calling price cut event");
         }
 
         public void takeOrder() // callback from travel agent
         {
-            // add your implementation here
+            while (MainClass.hotelThreadRunning || MainClass.buffer.GetOneCell() != null)
+            {
+                Order order = MainClass.buffer.GetOneCell();
+
+                if (order != null)
+                {
+                    Thread orderThread = new Thread(() => ProcessOrder(order));
+                    orderThread.Start();
+                }
+            }
         }
     }
 }
