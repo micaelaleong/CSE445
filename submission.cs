@@ -78,17 +78,19 @@ namespace ConsoleApp1
 
         public void SetOneCell(Order data)
         {
+            Console.WriteLine("Setting in buffer cell");
             setSemaph.WaitOne(); // decrements setSemaph count (-1 available cells that can be set)
             // https://stackoverflow.com/questions/70465029/understanding-semaphores-in-c-sharp
 
             for (int i = 0; i < bufferSize; i++) {
-                if (multiCells == null) {
+                if (multiCells[i] == null) {
                     multiCells[i] = data; // set cell with given data
                     usedCells++;
                     break;
                 }
             }
             getSemaph.Release(); // increments getSemaph count (+1 cells that can be gotten)
+            Console.WriteLine("Exit setting in buffer");
         }
 
         public Order GetOneCell()
@@ -97,7 +99,7 @@ namespace ConsoleApp1
             Order tempOrder = null; // temporary null Order
 
             for (int i = 0; i < bufferSize; i++) {
-                if (multiCells != null) {
+                if (multiCells[i] != null) {
                     multiCells[i] = null; // replace cell's data with null
                     usedCells--;
                     break;
@@ -105,6 +107,7 @@ namespace ConsoleApp1
             }
 
             setSemaph.Release(); // increments setSemaph count (+1 cells that can be set)
+            Console.WriteLine("Exit reading buffer");
         }
     }
 
@@ -165,7 +168,7 @@ namespace ConsoleApp1
         public static double calculateCharge(double unitPrice, int quantity)
         {
             Random rnd = new Random(); 
-            double tax = rnd.(8, 12) / 100.0; // generates random tax in between 8-12%
+            double tax = rnd.Next(8, 12) / 100.0; // generates random tax in between 8-12%
             int locationCharge = rnd.Next(20, 81); // generates random location charge in range [20, 80]
 
             // unitPrice * NoOfTicket + Tax + LocationCharge (given equation)
@@ -181,7 +184,8 @@ namespace ConsoleApp1
 
             if (validCard) {
                 // calculate total price
-                double totalPrice = calculateCharge(order.getUnitPrice, order.getQuantity);
+                double totalPrice = calculateCharge(order.getUnitPrice(), order.getQuantity());
+                // FIX THIS
                 OrderProcess(order, totalPrice); // pass OrderProcess with given Order and calculated price
             }            
         }
@@ -197,7 +201,7 @@ namespace ConsoleApp1
         public void orderProcessConfirm(Order order, double orderAmount)
         {
             // FIX THIS
-            Console.WriteLine("Travel Agent " + ___ + "'s order is confirmed. The amount to be charged is $" + orderAmount);
+            Console.WriteLine("Travel Agent " + Thread.CurrentThread.Name + "'s order is confirmed. The amount to be charged is $" + orderAmount);
         }
 
         private void createOrder(string senderId)
