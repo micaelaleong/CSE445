@@ -1,7 +1,0 @@
-C:\Users\mleong4\source\repos\TempConversion\bin\TempConversion.dll.config
-C:\Users\mleong4\source\repos\TempConversion\bin\TempConversion.dll
-C:\Users\mleong4\source\repos\TempConversion\bin\TempConversion.pdb
-C:\Users\mleong4\source\repos\TempConversion\obj\Debug\TempConversion.csproj.AssemblyReference.cache
-C:\Users\mleong4\source\repos\TempConversion\obj\Debug\TempConversion.csproj.CoreCompileInputs.cache
-C:\Users\mleong4\source\repos\TempConversion\obj\Debug\TempConversion.dll
-C:\Users\mleong4\source\repos\TempConversion\obj\Debug\TempConversion.pdb
