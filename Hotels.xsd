@@ -27,7 +27,7 @@
             <xsd:element name="Phone" type="xsd:string" />
             <xsd:element name="Address" type="Address" />
             <xsd:element name="Rating" type="xsd:string" minOccurs="0" />
-            <!-- set minOccurs to 0 because it's an optional attribute (can potentially show up 0
+            <!-- set minOccurs to 0 because it's an optional attribute (can potentially show  0
             times) -->
         </xsd:sequence>
     </xsd:complexType>
@@ -42,7 +42,7 @@
             <xsd:element name="Zip" type="xsd:int" />
         </xsd:sequence>
         <!-- required attribute of nearest airport-->
-        <xsd:attribute name="NearestAirport" type="xsd:string" use="required" />
+        <xsd:attribute name="_NearestAirport" type="xsd:string" use="required" />
     </xsd:complexType>
 
 </xsd:schema>

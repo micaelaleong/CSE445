@@ -44,11 +44,10 @@ namespace ConsoleApp1
             // https://learn.microsoft.com/en-us/dotnet/standard/data/xml/xml-schema-xsd-validation-with-xmlschemaset
 
             XmlReaderSettings hotelSettings = new XmlReaderSettings();
-            hotelSettings.Schemas.Add(null, XmlReader.Create(xsdUrl));
+            hotelSettings.Schemas.Add(null, XmlReader.Create(xsdUrl)); // takes the xsdUrl and creates an instance of an XmlReader so it can be used (rather than using a local file)
             hotelSettings.ValidationType = ValidationType.Schema;
 
-            // set default message to be "No Error" --> xml file fits xsd
-
+            // set default message to be "No Error" --> xml file fits xsd format
             string errorMessage = "No Error";
 
             hotelSettings.ValidationEventHandler += (sender, args) =>
@@ -57,9 +56,11 @@ namespace ConsoleApp1
                 errorMessage = args.Message;
             };
 
+            // use "using" block in order to only have the reader exist while needed
+            // will automatically remove xml reader after it's done being used
             using (XmlReader hotelsReader = XmlReader.Create(xmlUrl, hotelSettings))
             {
-                while (hotelsReader.Read()) { }
+                while (hotelsReader.Read()) { } // loops through document 
             }
 
             return errorMessage;
@@ -71,10 +72,10 @@ namespace ConsoleApp1
             // referencing StackOverflow:
             // https://stackoverflow.com/questions/814001/how-to-convert-json-to-xml-or-xml-to-json-in-c
 
-            XmlDocument doc = new XmlDocument();
-            doc.Load(xmlUrl);
+            XmlDocument doc = new XmlDocument(); // creates a new instance of a xml document
+            doc.Load(xmlUrl); // loads the xml document using the given url
 
-            string jsonText = JsonConvert.SerializeXmlNode(doc);
+            string jsonText = JsonConvert.SerializeXmlNode(doc); // convert the xml doc into a json string
 
             // The returned jsonText needs to be de-serializable by Newtonsoft.Json package. (JsonConvert.DeserializeXmlNode(jsonText))
             return jsonText;

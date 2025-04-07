@@ -10,7 +10,7 @@
         <Name>Westin</Name>
         <Phone>480-968-8885</Phone>
         <Phone>800-937-8461</Phone>
-        <Address NearestAirport="Sky Harbor">
+        <Address _NearestAirport="Sky Harbor">
             <Number>11</Number>
             <Street>E. 7th St</Street>
             <City>Tempe</City>
@@ -38,7 +38,7 @@
     <Hotel>
         <Name>University Inn Tempe/ASU</Name>
         <Phone>480-966-7221</Phone>
-        <Address NearestAirport="Sky Harbor">
+        <Address _NearestAirport="Sky Harbor">
             <Number>902</Number>
             <Street>S Mill Ave</Street>
             <City>Tempe</City>
@@ -52,7 +52,7 @@
     <Hotel>
         <Name>Omni Tempe Hotel at ASU</Name>
         <!-- no phone number -->
-        <Address NearestAirport="Sky Harbor">
+        <Address _NearestAirport="Sky Harbor">
             <Number>7</Number>
             <Street>E University Dr</Street>
             <City>Tempe</City>
@@ -66,7 +66,7 @@
     <Hotel>
         <Name>DoubleTree by Hilton Hotel San Jose</Name>
         <Phone></Phone>
-        <Address NearestAirport="SJC">
+        <Address _NearestAirport="SJC">
         <Number>2050</Number>
         <Street>Gateway Pl</Street>
         <City>San Jose</City>
@@ -80,7 +80,7 @@
         <Name>Hilton San Jose</Name>
         <Phone>408-287-2100</Phone>
         <Phone>1-800-445-8667</Phone>
-        <Address NearestAirport="SJC">
+        <Address _NearestAirport="SJC">
             <Number>300</Number>
             <Street>S Almaden Ave</Street>
             <City>San Jose</City>
@@ -94,7 +94,7 @@
     <Hotel>
         <Name>Palihotel San Francisco</Name>
         <Phone>415-400-0500</Phone>
-        <Address NearestAirport="SFO">
+        <Address _NearestAirport="SFO">
             <Number>417</Number>
             <Street>Stockton St</Street>
             <City>San Francisco</City>
@@ -109,7 +109,7 @@
         <Name>Golden Gate Hotel</Name>
         <Name>Name #2</Name>
         <Phone>415-392-3702</Phone>
-        <Address NearestAirport="SFO">
+        <Address _NearestAirport="SFO">
             <Number>775</Number>
             <Street>Bush St</Street>
             <City>San Francisco</City>
@@ -123,7 +123,7 @@
     <Hotel>
         <Name>San Francisco Marriott Marquis</Name>
         <Phone>415-896-1600</Phone>
-        <Address NearestAirport="SFO">
+        <Address _NearestAirport="SFO">
             <Number>780</Number>
             <Street>Mission St</Street>
             <City>San Francisco</City>
@@ -137,7 +137,7 @@
         <Name>Embassy Suites by Hilton Phoenix Downtown North</Name>
         <Phone>602-222-1111</Phone>
         <Phone>1-800-322-2779</Phone>
-        <Address NearestAirport="Sky Harbor">
+        <Address _NearestAirport="Sky Harbor">
             <Number>10</Number>
             <Street>E Thomas Rd</Street>
             <City>Phoenix</City>
