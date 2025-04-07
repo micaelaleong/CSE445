@@ -26,8 +26,8 @@ https://learn.microsoft.com/en-us/visualstudio/xml-tools/sample-xsd-file-simple-
             <xsd:element name="Name" type="xsd:string" />
             <xsd:element name="Phone" type="xsd:string" />
             <xsd:element name="Address" type="Address" />
-            <xsd:element name="Rating" type="xsd:string" />
-            <!-- -->
+            <xsd:element name="Rating" type="xsd:string" minOccurs="0" />
+            <!-- set minOccurs to 0 because it's an optional attribute-->
         </xsd:sequence>
     </xsd:complexType>
 
