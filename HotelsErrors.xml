@@ -131,7 +131,7 @@
         <City>San Francisco</City>
         <State>CA</State>
         <Zip>94103</Zip>
-
+        <!-- missing </Address>-->
     </Hotel>
 
     <!-- Hotel 10 -->
