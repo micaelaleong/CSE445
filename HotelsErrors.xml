@@ -126,12 +126,12 @@
         <Name>San Francisco Marriott Marquis</Name>
         <Phone>415-896-1600</Phone>
         <Address NearestAirport="SFO">
-            <Number>780</Number>
-            <Street>Mission St</Street>
-            <City>San Francisco</City>
-            <State>CA</State>
-            <Zip>94103</Zip>
-        </Address>
+        <Number>780</Number>
+        <Street>Mission St</Street>
+        <City>San Francisco</City>
+        <State>CA</State>
+        <Zip>94103</Zip>
+
     </Hotel>
 
     <!-- Hotel 10 -->
@@ -140,12 +140,12 @@
         <Phone>602-222-1111</Phone>
         <Phone>1-800-322-2779</Phone>
         <Address NearestAirport="Sky Harbor">
-        <Number>10</Number>
-        <Street>E Thomas Rd</Street>
-        <City>Phoenix</City>
-        <State>AZ</State>
-        <Zip>85012</Zip>
-        <!-- Address is missing closing tag-->
+            <Number>10</Number>
+            <Street>E Thomas Rd</Street>
+            <City>Phoenix</City>
+            <State>AZ</State>
+            <Zip>85012</Zip>
+        </Address>
         <Rating>4.5</Rating>
     </Hotel>
 
