@@ -5,8 +5,8 @@ https://learn.microsoft.com/en-us/visualstudio/xml-tools/sample-xsd-file-simple-
 
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    targetNamespace="https://micaelaleong.github.io/CSE445/Assignment4"
-    xmlns="https://micaelaleong.github.io/CSE445/Assignment4"
+    targetNamespace="https://micaelaleong.github.io/CSE445"
+    xmlns="https://micaelaleong.github.io/CSE445"
     elementFormDefault="qualified"
     attributeFormDefault="unqualified">
 

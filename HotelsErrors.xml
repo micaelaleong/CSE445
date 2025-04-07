@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Hotel instead of Hotels -->
 <Hotel
-    xmlns="https://micaelaleong.github.io/CSE445/Assignment4"
+    xmlns="https://micaelaleong.github.io/CSE445"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://micaelaleong.github.io/CSE445/Assignment4/Hotels.xsd"
+    xsi:schemaLocation="https://micaelaleong.github.io/CSE445/Hotels.xsd"
     elementFormDefault="qualified"
     attributeFormDefault="unqualified">
 
