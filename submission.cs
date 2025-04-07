@@ -42,37 +42,27 @@ namespace ConsoleApp1
             // referencing StackOverflow and Microsoft documentation:
             // https://stackoverflow.com/questions/751511/validating-an-xml-against-referenced-xsd-in-c-sharp
             // https://learn.microsoft.com/en-us/dotnet/standard/data/xml/xml-schema-xsd-validation-with-xmlschemaset
-            try
+
+            XmlReaderSettings hotelSettings = new XmlReaderSettings();
+            hotelSettings.Schemas.Add(null, XmlReader.Create(xsdUrl));
+            hotelSettings.ValidationType = ValidationType.Schema;
+
+            // set default message to be "No Error" --> xml file fits xsd
+
+            string errorMessage = "No Error";
+
+            hotelSettings.ValidationEventHandler += (sender, args) =>
             {
-                XmlReaderSettings hotelSettings = new XmlReaderSettings();
-                hotelSettings.Schemas.Add(null, xsdUrl);
-                hotelSettings.ValidationType = ValidationType.Schema;
+                // if there is a validation error, change message to be the validation error
+                errorMessage = args.Message;
+            };
 
-                bool valid = true;
-
-                hotelSettings.ValidationEventHandler += (sender, args) =>
-                {
-                    valid = false;
-                };
-
-                XmlReader hotelsReader = XmlReader.Create(xmlUrl, hotelSettings);
-
+            using (XmlReader hotelsReader = XmlReader.Create(xmlUrl, hotelSettings))
+            {
                 while (hotelsReader.Read()) { }
-
-                if (valid)
-                {
-                    return "No Error";
-                }
-                else
-                {
-                    return "Validation error"
-                }
             }
 
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
+            return errorMessage;
             //return "No Error" if XML is valid. Otherwise, return the desired exception message.
         }
 
