@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Hotels
+    xmlns="https://micaelaleong.github.io/CSE445/Assignment4"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://micaelaleong.github.io/CSE445/Assignment4/Hotels.xsd">
+
+    <!-- Hotel 1 -->
+    <Hotel>
+        <Name>Westin</Name>
+        <Phone>480-968-8885</Phone>
+        <Phone>800-937-8461</Phone>
+        <Address NearestAirport="Sky Harbor">
+            <Number>11</Number>
+            <Street>E. 7th St</Street>
+            <City>Tempe</City>
+            <State>AZ</State>
+            <Zip>85281</Zip>
+        </Address>
+        <Rating>4.2</Rating>
+    </Hotel>
+
+    <!-- Hotel 2 -->
+    <Hotel>
+        <Name>Graduate by Hilton Tempe</Name>
+        <Phone>480-967-9431</Phone>
+        <Address NearestAirport="Sky Harbor">
+            <Number>225</Number>
+            <Street>E Apache Blvd</Street>
+            <City>Tempe</City>
+            <State>AZ</State>
+            <Zip>85281</Zip>
+        </Address>
+        <Rating>4.2</Rating>
+    </Hotel>
+
+    <!-- Hotel 3 -->
+    <Hotel>
+        <Name>University Inn Tempe/ASU</Name>
+        <Phone>480-966-7221</Phone>
+        <Address NearestAirport="Sky Harbor">
+            <Number>902</Number>
+            <Street>S Mill Ave</Street>
+            <City>Tempe</City>
+            <State>AZ</State>
+            <Zip>85281</Zip>
+        </Address>
+        <Rating>4.4</Rating>
+    </Hotel>
+
+    <!-- Hotel 4 -->
+    <Hotel>
+        <Name>Omni Tempe Hotel at ASU</Name>
+        <Phone>602-794-8600</Phone>
+        <Address NearestAirport="Sky Harbor">
+            <Number>7</Number>
+            <Street>E University Dr</Street>
+            <City>Tempe</City>
+            <State>AZ</State>
+            <Zip>85281</Zip>
+        </Address>
+        <Rating>4.5</Rating>
+    </Hotel>
+
+    <!-- Hotel 5 -->
+    <Hotel>
+        <Name>DoubleTree by Hilton Hotel San Jose</Name>
+        <Phone></Phone>
+        <Address NearestAirport="SJC">
+            <Number>2050</Number>
+            <Street>Gateway Pl</Street>
+            <City>San Jose</City>
+            <State>CA</State>
+            <Zip>95110</Zip>
+        </Address>
+    </Hotel>
+
+    <!-- Hotel 6 -->
+    <Hotel>
+        <Name>Hilton San Jose</Name>
+        <Phone>408-287-2100</Phone>
+        <Phone>1-800-445-8667</Phone>
+        <Address NearestAirport="SJC">
+            <Number>300</Number>
+            <Street>S Almaden Ave</Street>
+            <City>San Jose</City>
+            <State>CA</State>
+            <Zip>95110</Zip>
+        </Address>
+        <Rating>4.1</Rating>
+    </Hotel>
+
+    <!-- Hotel 7 -->
+    <Hotel>
+        <Name>Palihotel San Francisco</Name>
+        <Phone>415-400-0500</Phone>
+        <Address NearestAirport="SFO">
+            <Number>417</Number>
+            <Street>Stockton St</Street>
+            <City>San Francisco</City>
+            <State>CA</State>
+            <Zip>94108</Zip>
+        </Address>
+    </Hotel>
+
+    <!-- Hotel 8 -->
+    <Hotel>
+        <Name>Golden Gate Hotel</Name>
+        <Phone>415-392-3702</Phone>
+        <Address NearestAirport="SFO">
+            <Number>775</Number>
+            <Street>Bush St</Street>
+            <City>San Francisco</City>
+            <State>CA</State>
+            <Zip>94108</Zip>
+        </Address>
+        <Rating>4.6</Rating>
+    </Hotel>
+
+    <!-- Hotel 9 -->
+    <Hotel>
+        <Name>San Francisco Marriott Marquis</Name>
+        <Phone>415-896-1600</Phone>
+        <Address NearestAirport="SFO">
+            <Number>780</Number>
+            <Street>Mission St</Street>
+            <City>San Francisco</City>
+            <State>CA</State>
+            <Zip>94103</Zip>
+        </Address>
+    </Hotel>
+
+    <!-- Hotel 10 -->
+    <Hotel>
+        <Name>Embassy Suites by Hilton Phoenix Downtown North</Name>
+        <Phone>602-222-1111</Phone>
+        <Phone>1-800-322-2779</Phone>
+        <Address NearestAirport="Sky Harbor">
+            <Number>10</Number>
+            <Street>E Thomas Rd</Street>
+            <City>Phoenix</City>
+            <State>AZ</State>
+            <Zip>85012</Zip>
+        </Address>
+        <Rating>4.5</Rating>
+    </Hotel>
+
+</Hotels>
