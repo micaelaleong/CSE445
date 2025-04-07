@@ -24,7 +24,7 @@
     <xsd:complexType name="Hotel">
         <xsd:sequence>
             <xsd:element name="Name" type="xsd:string" />
-            <xsd:element name="Phone" type="xsd:string" />
+            <xsd:element name="Phone" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="Address" type="Address" />
             <xsd:element name="Rating" type="xsd:string" minOccurs="0" />
             <!-- set minOccurs to 0 because it's an optional attribute (can potentially show  0
