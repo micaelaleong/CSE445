@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <!-- Initializing Hotels and it's subtype Hotel-->
+    <xsd:element name="Hotels">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="Hotel" minOccurs="1" maxOccurs="unbounded">
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!-- Information for type Hotel -->
+    <xsd:complexType name="Hotel">
+        <xsd:sequence>
+            <xsd:element name="Name" type="xsd:string" />
+            <xsd:element name="Phone" type="xsd:string" />
+            <xsd:element name="Address" type="Address" />
+            <xsd:element name="Rating" type="xsd:string" minOccurs="0" />
+            <!-- -->
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- Information for type Address-->
+    <xsd:complexType name="Address">
+        <xsd:sequence>
+            <xsd:element name="Number" type="xsd:int" />
+            <xsd:element name="Street" type="xsd:string" />
+            <xsd:element name="City" type="xsd:string" />
+            <xsd:element name="State" type="xsd:string" />
+            <xsd:element name="Zip" type="xsd:int" />
+        </xsd:sequence>
+        <!-- required attribute of nearest airport-->
+        <xsd:attribute name="NearestAirport" type="xsd:string" use="required" />
+    </xsd:complexType>
+
+</xsd:schema>
