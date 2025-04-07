@@ -42,28 +42,34 @@ namespace ConsoleApp1
             // referencing StackOverflow and Microsoft documentation:
             // https://stackoverflow.com/questions/751511/validating-an-xml-against-referenced-xsd-in-c-sharp
             // https://learn.microsoft.com/en-us/dotnet/standard/data/xml/xml-schema-xsd-validation-with-xmlschemaset
-
-            XmlReaderSettings hotelSettings = new XmlReaderSettings();
-            hotelSettings.Schemas.Add(null, XmlReader.Create(xsdUrl)); // takes the xsdUrl and creates an instance of an XmlReader so it can be used (rather than using a local file)
-            hotelSettings.ValidationType = ValidationType.Schema;
-
-            // set default message to be "No Error" --> xml file fits xsd format
-            string errorMessage = "No Error";
-
-            hotelSettings.ValidationEventHandler += (sender, args) =>
+            try
             {
-                // if there is a validation error, change message to be the validation error
-                errorMessage = args.Message;
-            };
+                XmlReaderSettings hotelSettings = new XmlReaderSettings();
+                hotelSettings.Schemas.Add(null, XmlReader.Create(xsdUrl)); // takes the xsdUrl and creates an instance of an XmlReader so it can be used (rather than using a local file)
+                hotelSettings.ValidationType = ValidationType.Schema;
 
-            // use "using" block in order to only have the reader exist while needed
-            // will automatically remove xml reader after it's done being used
-            using (XmlReader hotelsReader = XmlReader.Create(xmlUrl, hotelSettings))
-            {
-                while (hotelsReader.Read()) { } // loops through document 
+                // set default message to be "No Error" --> xml file fits xsd format
+                string errorMessage = "No Error";
+
+                hotelSettings.ValidationEventHandler += (sender, args) =>
+                {
+                    // if there is a validation error, change message to be the validation error
+                    errorMessage = args.Message;
+                };
+
+                // use "using" block in order to only have the reader exist while needed
+                // will automatically remove xml reader after it's done being used
+                using (XmlReader hotelsReader = XmlReader.Create(xmlUrl, hotelSettings))
+                {
+                    while (hotelsReader.Read()) { } // loops through document 
+                }
+
+                return errorMessage;
             }
-
-            return errorMessage;
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
             //return "No Error" if XML is valid. Otherwise, return the desired exception message.
         }
 
