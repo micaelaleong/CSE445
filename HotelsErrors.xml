@@ -2,18 +2,15 @@
 <Hotel
     xmlns="https://micaelaleong.github.io/CSE445"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://micaelaleong.github.io/CSE445/Hotels.xsd"
-    elementFormDefault="qualified"
-    attributeFormDefault="unqualified">
-    <!-- Hotel instead of Hotels -->
+    xsi:schemaLocation="https://micaelaleong.github.io/CSE445/Hotels.xsd">
+    <!-- root element name is Hotel -->
 
     <!-- Hotel 1 -->
     <Hotel>
         <Name>Westin</Name>
         <Phone>480-968-8885</Phone>
         <Phone>800-937-8461</Phone>
-        <!-- Missing nearest airport (required attribute) -->
-        <Address>
+        <Address NearestAirport="Sky Harbor">
             <Number>11</Number>
             <Street>E. 7th St</Street>
             <City>Tempe</City>
@@ -27,7 +24,7 @@
     <Hotel>
         <Name>Graduate by Hilton Tempe</Name>
         <Phone>480-967-9431</Phone>
-        <Address NearestAirport="Sky Harbor">
+        <Address> <!-- missing attribute (no nearest airport) -->
             <Number>225</Number>
             <Street>E Apache Blvd</Street>
             <City>Tempe</City>
@@ -39,9 +36,7 @@
 
     <!-- Hotel 3 -->
     <Hotel>
-        <!-- Two names for one hotel-->
         <Name>University Inn Tempe/ASU</Name>
-        <Name>Name #2</Name>
         <Phone>480-966-7221</Phone>
         <Address NearestAirport="Sky Harbor">
             <Number>902</Number>
@@ -56,7 +51,7 @@
     <!-- Hotel 4 -->
     <Hotel>
         <Name>Omni Tempe Hotel at ASU</Name>
-        <Phone>602-794-8600</Phone>
+        <!-- no phone number -->
         <Address NearestAirport="Sky Harbor">
             <Number>7</Number>
             <Street>E University Dr</Street>
@@ -72,18 +67,19 @@
         <Name>DoubleTree by Hilton Hotel San Jose</Name>
         <Phone></Phone>
         <Address NearestAirport="SJC">
-            <Number>2050</Number>
-            <Street>Gateway Pl</Street>
-            <City>San Jose</City>
-            <State>CA</State>
-            <Zip>95110</Zip>
-        </Address>
+        <Number>2050</Number>
+        <Street>Gateway Pl</Street>
+        <City>San Jose</City>
+        <State>CA</State>
+        <Zip>95110</Zip>
+        <!-- missing closing tag for address (</Address>) -->
     </Hotel>
 
     <!-- Hotel 6 -->
     <Hotel>
         <Name>Hilton San Jose</Name>
-        <!-- Phone number is missing -->
+        <Phone>408-287-2100</Phone>
+        <Phone>1-800-445-8667</Phone>
         <Address NearestAirport="SJC">
             <Number>300</Number>
             <Street>S Almaden Ave</Street>
@@ -109,7 +105,9 @@
 
     <!-- Hotel 8 -->
     <Hotel>
+        <!-- two names for the same hotel-->
         <Name>Golden Gate Hotel</Name>
+        <Name>Name #2</Name>
         <Phone>415-392-3702</Phone>
         <Address NearestAirport="SFO">
             <Number>775</Number>
@@ -126,12 +124,12 @@
         <Name>San Francisco Marriott Marquis</Name>
         <Phone>415-896-1600</Phone>
         <Address NearestAirport="SFO">
-        <Number>780</Number>
-        <Street>Mission St</Street>
-        <City>San Francisco</City>
-        <State>CA</State>
-        <Zip>94103</Zip>
-        <!-- missing </Address>-->
+            <Number>780</Number>
+            <Street>Mission St</Street>
+            <City>San Francisco</City>
+            <State>CA</State>
+            <Zip>94103</Zip>
+        </Address>
     </Hotel>
 
     <!-- Hotel 10 -->
